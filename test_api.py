@@ -7,15 +7,20 @@ load_dotenv()
 
 API_KEY = os.getenv("TFL_API_KEY")
 
-url = "https://api.tfl.gov.uk/Line/Mode/tube/Status"
+url = f"https://api.tfl.gov.uk/Line/Mode/tube/Status?app_key={API_KEY}"
 
-params = {
-    "app_key": API_KEY
-}
+try:
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
+except requests.exceptions.RequestException as e:
+     print(f"Request failed: {e}")
+     raise
 
-response = requests.get(url, params=params)
-
-data = response.json()
+try:
+    data = response.json()
+except requests.JSONDecodeError as e:
+     print(f"Invalid JSON response {e}")
+     raise
 
 
 
@@ -27,8 +32,12 @@ def output():
     for line in data:
             line_id = line["id"]
             line_name = line["name"]
-            severity = line["lineStatuses"][0]["statusSeverity"]
-            status = line["lineStatuses"][0]["statusSeverityDescription"]
+            if line["lineStatuses"]:
+                severity = line["lineStatuses"][0]["statusSeverity"]
+                status = line["lineStatuses"][0]["statusSeverityDescription"]
+            else:
+                 severity = None
+                 status = None
             print(f"{observe_date} | {line_id} | {line_name} | {severity} | {status}")
 
             records.append({
