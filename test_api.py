@@ -38,7 +38,7 @@ def output():
             else:
                  severity = None
                  status = None
-            print(f"{observe_date} | {line_id} | {line_name} | {severity} | {status}")
+            # print(f"{observe_date} | {line_id} | {line_name} | {severity} | {status}")
 
             records.append({
                   "observed_at": observe_date,
@@ -50,3 +50,4 @@ def output():
     return records
 
 records = output() #records contain the original data, not the human readable version
+print(data[0])
