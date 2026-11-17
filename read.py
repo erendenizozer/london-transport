@@ -19,18 +19,9 @@ response.raise_for_status()
 
 data = response.json()
 
-# print(json.dumps(data[0], indent=4))
-
 for line in data:
-    print(f"\nLine: {line['name']}")
-
-    print(f"Number of statuses: {len(line['lineStatuses'])}")
-
-    for status in line["lineStatuses"]:
-        print(
-            status["statusSeverityDescription"],
-            "|",
-            status.get("reason")
-        )
-
-    print(f"Number of disruptions: {len(line['disruptions'])}")
+    print(
+        line["name"],
+        "Statuses:",
+        len(line["lineStatuses"])
+    )
