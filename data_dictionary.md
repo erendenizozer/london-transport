@@ -7,4 +7,4 @@
 | statusSeverityDescriptions | string/None | Human-readable service status                           | No       |
 | reason                     | string/None | Explanation of the current service status or disruption | Yes      |
 | validityPeriods            | string/None | Period during which a status is valid                   | No       |
-| observed_at                | string/None | EWhen our pipeline collected the data                   | No       |
+| observed_at                | string/None | When our pipeline collected the data                   | No       |
